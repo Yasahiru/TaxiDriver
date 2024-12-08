@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addQr(){
-
+        println("khdmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaat")
     }
+
 }
