@@ -5,8 +5,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cmc.mytaxi.App
 import com.cmc.mytaxi.R
-import com.cmc.mytaxi.data.local.dao.DriverDao
 import com.cmc.mytaxi.data.local.models.Driver
 import com.cmc.mytaxi.data.repository.DriverRepository
 import com.cmc.mytaxi.databinding.ProfileFragmentLayoutBinding
@@ -21,13 +21,12 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
         super.onViewCreated(view, savedInstanceState)
         _binding = ProfileFragmentLayoutBinding.bind(view)
 
-        val driverDao = DriverDao.getDatabase(requireContext()).driverDao()
-        val repository = DriverRepository(driverDao)
-        val factory = ProfileViewModelFactory(repository)
-        driverViewModel = ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
+        val driverRepository = DriverRepository(App.database.driverDao())
+        val factory = ProfileViewModelFactory(driverRepository)
+
+        driverViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
 
         binding.rv.layoutManager = LinearLayoutManager(requireContext())
-        driverViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
         binding.btnAddDriver.setOnClickListener {
             val firstName = binding.etFirstName.text.toString()

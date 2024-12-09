@@ -45,16 +45,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Add Driver"
-        android:onClick="onAddDriverClick" />
+        android:text="Add Driver" />
 
     <Button
         android:id="@+id/btnGetAllDrivers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Get All Drivers"
-        android:onClick="onGetAllDriversClick" />
+        android:text="Get All Drivers"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

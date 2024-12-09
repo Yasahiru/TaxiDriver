@@ -6,9 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class DriverRepository(private val driverDao: DriverDao) {
 
-    fun getAllDrivers(): Flow<List<Driver>> {
-        return driverDao.getAllDrivers()
-    }
+    fun getAllDrivers(): Flow<List<Driver>> = driverDao.getAllDrivers()
 
     suspend fun upsertDriver(driver: Driver) {
         driverDao.upsertDriver(driver)

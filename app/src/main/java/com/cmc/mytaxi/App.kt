@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.cmc.mytaxi.data.local.database.AppDatabase
 
-class App: Application() {
+class App : Application() {
 
     companion object {
         lateinit var database: AppDatabase
