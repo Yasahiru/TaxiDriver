@@ -1,5 +1,6 @@
 package com.cmc.mytaxi.ui.profile
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,9 @@ import com.cmc.mytaxi.data.local.models.Driver
 import com.cmc.mytaxi.data.repository.DriverRepository
 import com.cmc.mytaxi.databinding.FragmentEditProfileBinding
 import com.cmc.mytaxi.databinding.ProfileFragmentLayoutBinding
+import com.cmc.mytaxi.ui.components.QRCodeGenerator
+import com.google.zxing.BarcodeFormat
+import com.journeyapps.barcodescanner.BarcodeEncoder
 
 
 class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
@@ -19,10 +23,10 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var driverViewModel: ProfileViewModel
+    private lateinit var PersonalInfos: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,15 +42,32 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 displayDriverDetails(it)
             }
         }
+    }
 
+    fun QRCodegenerator(infos:String){
+        try {
+            val barcodeEncoder = BarcodeEncoder()
+            val bitmap: Bitmap = barcodeEncoder.encodeBitmap(infos, BarcodeFormat.QR_CODE, 400, 400)
+            binding.qrcode.setImageBitmap(bitmap)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun displayDriverDetails(driver: Driver) {
-        binding.idDriver.text = driver.driverId.toString()
         binding.fname.text = driver.firstName
         binding.lname.text = driver.lastName
         binding.age.text = driver.age.toString()
         binding.permiType.text = driver.permiType
+
+        PersonalInfos = """
+            Nom: ${driver.firstName}
+            Prenom: ${driver.lastName}
+            Age: ${driver.age}
+            Type De Permie: ${driver.permiType}
+        """.trimIndent()
+
+        QRCodegenerator(PersonalInfos)
     }
 
 
