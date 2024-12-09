@@ -35,6 +35,12 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
             driverViewModel.addDriver(driver)
 
 
+            val ProfilEditFragment = EditProfileFragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, ProfilEditFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+
         }
     }
 
