@@ -14,8 +14,6 @@ class ProfileViewModel(private val driverRepository: DriverRepository) : ViewMod
     val allDrivers:StateFlow<List<Driver>> = driverRepository.getAllDrivers()
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
-
-
     fun addDriver(driver: Driver) {
         viewModelScope.launch {
             driverRepository.upsertDriver(driver)

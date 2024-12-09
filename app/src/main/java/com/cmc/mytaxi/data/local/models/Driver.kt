@@ -12,4 +12,5 @@ data class Driver(
     val age: Int,
     val permiType: String
 
-    )
+    ) {
+}
