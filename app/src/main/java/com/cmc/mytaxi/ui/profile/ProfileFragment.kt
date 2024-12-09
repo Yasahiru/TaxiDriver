@@ -25,12 +25,6 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
 
         driverViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
 
-        driverViewModel.getDriverById(1).observe(viewLifecycleOwner) { driver ->
-            driver?.let {
-                displayDriverDetails(it)
-            }
-        }
-
         binding.btnAddDriver.setOnClickListener {
             val firstName = binding.etFirstName.text.toString()
             val lastName = binding.etLastName.text.toString()
@@ -40,16 +34,8 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
             val driver = Driver(driverId = 1, firstName = firstName, lastName = lastName, age = age, permiType = permiType)
             driverViewModel.addDriver(driver)
 
-            displayDriverDetails(driver)
-        }
-    }
 
-    private fun displayDriverDetails(driver: Driver) {
-        binding.idDriver.text = driver.driverId.toString()
-        binding.fname.text = driver.firstName
-        binding.lname.text = driver.lastName
-        binding.age.text = driver.age.toString()
-        binding.permiType.text = driver.permiType
+        }
     }
 
     override fun onDestroyView() {
