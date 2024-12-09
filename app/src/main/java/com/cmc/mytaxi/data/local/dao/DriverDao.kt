@@ -1,15 +1,16 @@
 package com.cmc.mytaxi.data.local.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Upsert
 import com.cmc.mytaxi.data.local.models.Driver
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DriverDao {
 
-    @Upsert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertDriver(driver : Driver)
 
     @Query("Select * from drivers")

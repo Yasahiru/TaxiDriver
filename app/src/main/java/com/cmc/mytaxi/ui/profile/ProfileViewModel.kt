@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val driverRepository: DriverRepository) : ViewModel() {
 
-    val allDrivers:StateFlow<List<Driver>> = driverRepository.getAllDrivers()
+    val allDrivers: StateFlow<List<Driver>> = driverRepository.getAllDrivers()
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     fun addDriver(driver: Driver) {
@@ -19,12 +19,4 @@ class ProfileViewModel(private val driverRepository: DriverRepository) : ViewMod
             driverRepository.upsertDriver(driver)
         }
     }
-
-    fun getAllDrivers() {
-        viewModelScope.launch {
-            driverRepository.getAllDrivers()
-        }
-    }
-
-
 }
