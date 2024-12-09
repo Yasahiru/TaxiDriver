@@ -1,5 +1,7 @@
 package com.cmc.mytaxi.ui.profile
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cmc.mytaxi.data.local.models.Driver
@@ -12,5 +14,13 @@ class ProfileViewModel(private val driverRepository: DriverRepository) : ViewMod
         viewModelScope.launch {
             driverRepository.upsertDriver(driver)
         }
+    }
+
+    fun getDriverById(driverId: Int): LiveData<Driver?> {
+        val liveDataDriver = MutableLiveData<Driver?>()
+        viewModelScope.launch {
+            liveDataDriver.postValue(driverRepository.getDriverById(driverId))
+        }
+        return liveDataDriver
     }
 }

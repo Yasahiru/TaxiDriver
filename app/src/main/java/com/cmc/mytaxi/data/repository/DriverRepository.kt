@@ -9,7 +9,7 @@ class DriverRepository(private val driverDao: DriverDao) {
         driverDao.upsertDriver(driver)
     }
 
-    suspend fun getDriverById(id: Int): Driver? {
-        return driverDao.getDriverById(id)
+    suspend fun getDriverById(driverId: Int): Driver? {
+        return driverDao.getDriverById(driverId)
     }
 }

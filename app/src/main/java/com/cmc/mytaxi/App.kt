@@ -16,7 +16,7 @@ class App : Application() {
             applicationContext,
             AppDatabase::class.java,
             "my_taxi_database"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
 }

@@ -15,7 +15,6 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
     private var _binding: ProfileFragmentLayoutBinding? = null
     private val binding get() = _binding!!
     private lateinit var driverViewModel: ProfileViewModel
-    private lateinit var driver: Driver
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,21 +25,31 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
 
         driverViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
 
+        driverViewModel.getDriverById(1).observe(viewLifecycleOwner) { driver ->
+            driver?.let {
+                displayDriverDetails(it)
+            }
+        }
+
         binding.btnAddDriver.setOnClickListener {
             val firstName = binding.etFirstName.text.toString()
             val lastName = binding.etLastName.text.toString()
             val permiType = binding.etPermiType.text.toString()
             val age = binding.etAge.text.toString().toInt()
 
-            driverViewModel.addDriver(Driver(id, firstName, lastName, age, permiType))
+            val driver = Driver(driverId = 1, firstName = firstName, lastName = lastName, age = age, permiType = permiType)
+            driverViewModel.addDriver(driver)
 
-            binding.idDriver.text = driver.driverId.toString()
-            binding.fname.text = driver.firstName
-            binding.lname.text = driver.lastName
-            binding.age.text = driver.age.toString()
-            binding.permiType.text = driver.permiType
-
+            displayDriverDetails(driver)
         }
+    }
+
+    private fun displayDriverDetails(driver: Driver) {
+        binding.idDriver.text = driver.driverId.toString()
+        binding.fname.text = driver.firstName
+        binding.lname.text = driver.lastName
+        binding.age.text = driver.age.toString()
+        binding.permiType.text = driver.permiType
     }
 
     override fun onDestroyView() {
@@ -48,4 +57,5 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
         _binding = null
     }
 }
+
 
