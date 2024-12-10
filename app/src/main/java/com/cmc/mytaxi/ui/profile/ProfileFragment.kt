@@ -38,7 +38,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
             val ProfilEditFragment = EditProfileFragment()
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, ProfilEditFragment)
-            transaction.addToBackStack(null)
+            transaction.addToBackStack(null) // how
             transaction.commit()
 
         }
