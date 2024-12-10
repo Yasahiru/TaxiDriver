@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.cmc.mytaxi.R
+import com.cmc.mytaxi.ui.fragments.profile.EditProfileFragment
 
 import com.cmc.mytaxi.ui.fragments.profile.ProfileFragment
 
@@ -20,9 +21,25 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, ProfileFragment())
-            .commit()
+        val targetFragment = intent.getStringExtra("MainActivity")
+
+        if (targetFragment != null) {
+            when (targetFragment) {
+                "editProfile" -> {
+                    val fragment = EditProfileFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit()
+                }
+                else -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, ProfileFragment())
+                        .commit()
+                }
+            }
+        }
+
+
 
     }
 
