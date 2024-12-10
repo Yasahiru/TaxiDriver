@@ -2,15 +2,21 @@ package com.cmc.mytaxi.utils
 
 import android.content.Context
 import android.content.Intent
+
 import android.net.Uri
 import android.provider.Settings
 import androidx.fragment.app.FragmentActivity
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.vmadalin.easypermissions.EasyPermissions
 
 
 
 object PermissionsHelper {
     private const val LOCATION_PERMISSION_CODE = 100
+    const val LOCATION_REQUEST_CODE = 101
 
     fun hasLocationPermission(context: Context): Boolean {
         return EasyPermissions.hasPermissions(
@@ -43,5 +49,32 @@ object PermissionsHelper {
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+    fun checkAndPromptLocationServices(
+        context: Context,
+        onLocationSettingsSatisfied: () -> Unit,
+        onResolutionRequired: (ResolvableApiException) -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        val locationRequest = LocationRequest.create().apply {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        val settingsRequest = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+            .build()
+
+        val settingsClient = LocationServices.getSettingsClient(context)
+        settingsClient.checkLocationSettings(settingsRequest)
+            .addOnSuccessListener {
+                onLocationSettingsSatisfied()
+            }
+            .addOnFailureListener { exception ->
+                if (exception is ResolvableApiException) {
+                    onResolutionRequired(exception)
+                } else {
+                    onFailure(exception)
+                }
+            }
     }
 }

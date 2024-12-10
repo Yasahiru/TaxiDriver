@@ -1,6 +1,8 @@
 package com.cmc.mytaxi
 
 import android.content.Context
+import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -35,6 +37,23 @@ class MainActivity : AppCompatActivity() {
         notificationHelper = NotificationHelper(this)
 
         val btnToggleRide = findViewById<Button>(R.id.btnToggleRide)
+
+        PermissionsHelper.checkAndPromptLocationServices(
+            this,
+            onLocationSettingsSatisfied = {
+                Toast.makeText(this, "Location services are already enabled.", Toast.LENGTH_SHORT).show()
+            },
+            onResolutionRequired = { exception ->
+                try {
+                    exception.startResolutionForResult(this, PermissionsHelper.LOCATION_REQUEST_CODE)
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    Toast.makeText(this, "Unable to start resolution: ${sendEx.message}", Toast.LENGTH_SHORT).show()
+                }
+            },
+            onFailure = { exception ->
+                Toast.makeText(this, "Failed to check location settings: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+        )
 
         btnToggleRide.setOnClickListener {
             if (!PermissionsHelper.hasLocationPermission(this)) {
@@ -96,6 +115,16 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Permission granted. You can now start the ride.", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "Permission denied. Cannot start the ride.", Toast.LENGTH_SHORT).show()
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PermissionsHelper.LOCATION_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Location services enabled!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Location services not enabled.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
