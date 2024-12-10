@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.calculat_trafic
+package com.cmc.mytaxi.ui.activity
 
 import android.content.Intent
 import android.content.IntentSender
@@ -12,14 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cmc.mytaxi.R
-import com.cmc.mytaxi.calculat_trafic.utils.NotificationHelper
-import com.cmc.mytaxi.calculat_trafic.utils.PermissionsHelper
-import com.cmc.mytaxi.calculat_trafic.viewmodel.MainViewModel
-import com.cmc.mytaxi.calculat_trafic.viewmodel.MainViewModelFactory
+import com.cmc.mytaxi.utils.NotificationHelper
+import com.cmc.mytaxi.utils.PermissionsHelper
+import com.cmc.mytaxi.data.viewmodel.CalculatTraficViewModel
+import com.cmc.mytaxi.data.viewmodel.CalculatTraficViewModelFactory
 import pub.devrel.easypermissions.EasyPermissions
 
 class CalculatTrafic : AppCompatActivity() {
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: CalculatTraficViewModel
     private lateinit var notificationHelper: NotificationHelper
     private var isRideActive: Boolean = false
     private val handler = Handler(Looper.getMainLooper())
@@ -29,8 +29,8 @@ class CalculatTrafic : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.calculat_trafic_layout)
 
-        val factory = MainViewModelFactory(this)
-        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        val factory = CalculatTraficViewModelFactory(this)
+        viewModel = ViewModelProvider(this, factory).get(CalculatTraficViewModel::class.java)
         notificationHelper = NotificationHelper(this)
 
         val btnToggleRide = findViewById<Button>(R.id.btnToggleRide)

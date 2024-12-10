@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.ui.profile
+package com.cmc.mytaxi.data.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.calculat_trafic.utils
+package com.cmc.mytaxi.utils
 
 import android.content.Context
 import android.content.Intent

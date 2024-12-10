@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.calculat_trafic.repository
+package com.cmc.mytaxi.data.repository
 
 class FareRepository {
     private var baseFare: Double = 2.5

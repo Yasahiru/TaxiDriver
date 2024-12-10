@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.calculat_trafic.model
+package com.cmc.mytaxi.data.local.models
 
 data class RideModel(
     val distance: Double = 0.0,

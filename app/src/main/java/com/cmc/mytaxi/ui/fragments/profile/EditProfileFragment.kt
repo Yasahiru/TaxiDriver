@@ -1,21 +1,19 @@
-package com.cmc.mytaxi.ui.profile
+package com.cmc.mytaxi.ui.fragments.profile
 
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.cmc.mytaxi.App
-import com.cmc.mytaxi.CurrentPosition
+import com.cmc.mytaxi.ui.activity.CurrentPosition
 import com.cmc.mytaxi.R
 import com.cmc.mytaxi.data.local.models.Driver
 import com.cmc.mytaxi.data.repository.DriverRepository
 import com.cmc.mytaxi.databinding.FragmentEditProfileBinding
-import com.cmc.mytaxi.databinding.ProfileFragmentLayoutBinding
-import com.cmc.mytaxi.ui.components.QRCodeGenerator
+import com.cmc.mytaxi.data.viewmodel.ProfileViewModel
+import com.cmc.mytaxi.data.viewmodel.ProfileViewModelFactory
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 

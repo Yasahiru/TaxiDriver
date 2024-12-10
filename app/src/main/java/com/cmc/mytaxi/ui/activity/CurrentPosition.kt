@@ -1,4 +1,4 @@
-package com.cmc.mytaxi
+package com.cmc.mytaxi.ui.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -8,6 +8,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.cmc.mytaxi.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory

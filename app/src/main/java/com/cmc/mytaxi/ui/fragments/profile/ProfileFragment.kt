@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.ui.profile
+package com.cmc.mytaxi.ui.fragments.profile
 
 import android.os.Bundle
 import android.view.View
@@ -9,6 +9,8 @@ import com.cmc.mytaxi.R
 import com.cmc.mytaxi.data.local.models.Driver
 import com.cmc.mytaxi.data.repository.DriverRepository
 import com.cmc.mytaxi.databinding.ProfileFragmentLayoutBinding
+import com.cmc.mytaxi.data.viewmodel.ProfileViewModel
+import com.cmc.mytaxi.data.viewmodel.ProfileViewModelFactory
 
 class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
 
