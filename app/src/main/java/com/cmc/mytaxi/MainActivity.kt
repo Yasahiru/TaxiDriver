@@ -73,9 +73,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.rideData.observe(this, Observer { ride ->
             // Update UI with the latest ride details
-            findViewById<TextView>(R.id.tvDistance).text = "Distance: ${ride.distance} km"
+            val distance = String.format("%.2f", ride.distance) // Formats distance to 2 decimal places
+            val fare = String.format("%.2f", ride.totalFare)
+            findViewById<TextView>(R.id.tvDistance).text = "Distance: ${distance} km"
             findViewById<TextView>(R.id.tvTimeElapsed).text = "Time: ${ride.timeElapsed} min"
-            findViewById<TextView>(R.id.tvTotalFare).text = "Fare: ${ride.totalFare} DH"
+            findViewById<TextView>(R.id.tvTotalFare).text = "Fare: ${fare} DH"
         })
     }
 
