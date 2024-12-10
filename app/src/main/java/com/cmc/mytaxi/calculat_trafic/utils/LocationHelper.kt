@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.utils
+package com.cmc.mytaxi.calculat_trafic.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,8 +15,8 @@ class LocationHelper(context: Context) {
 
     private val locationRequest = LocationRequest.create().apply {
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        interval = 5000 // 5 seconds
-        fastestInterval = 2000 // 2 seconds
+        interval = 5000
+        fastestInterval = 2000
     }
 
     private val locationCallback = object : LocationCallback() {

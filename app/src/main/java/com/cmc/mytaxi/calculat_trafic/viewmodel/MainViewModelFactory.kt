@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.viewmodel
+package com.cmc.mytaxi.calculat_trafic.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

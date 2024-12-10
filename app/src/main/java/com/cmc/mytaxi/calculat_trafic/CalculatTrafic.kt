@@ -1,6 +1,5 @@
-package com.cmc.mytaxi
+package com.cmc.mytaxi.calculat_trafic
 
-import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
@@ -9,28 +8,26 @@ import android.os.Looper
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.cmc.mytaxi.utils.NotificationHelper
-import com.cmc.mytaxi.utils.PermissionsHelper
-import com.cmc.mytaxi.viewmodel.MainViewModel
-import com.cmc.mytaxi.viewmodel.MainViewModelFactory
-import com.vmadalin.easypermissions.EasyPermissions
+import com.cmc.mytaxi.R
+import com.cmc.mytaxi.calculat_trafic.utils.NotificationHelper
+import com.cmc.mytaxi.calculat_trafic.utils.PermissionsHelper
+import com.cmc.mytaxi.calculat_trafic.viewmodel.MainViewModel
+import com.cmc.mytaxi.calculat_trafic.viewmodel.MainViewModelFactory
+import pub.devrel.easypermissions.EasyPermissions
 
-class MainActivity : AppCompatActivity() {
+class CalculatTrafic : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private lateinit var notificationHelper: NotificationHelper
     private var isRideActive: Boolean = false
     private val handler = Handler(Looper.getMainLooper())
-    private val updateInterval: Long = 5000 // 5 seconds
+    private val updateInterval: Long = 5000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.calculat_trafic_layout)
 
         val factory = MainViewModelFactory(this)
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)

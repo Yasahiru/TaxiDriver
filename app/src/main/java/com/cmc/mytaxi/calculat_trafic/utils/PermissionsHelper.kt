@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.utils
+package com.cmc.mytaxi.calculat_trafic.utils
 
 import android.content.Context
 import android.content.Intent
@@ -10,8 +10,7 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
-import com.vmadalin.easypermissions.EasyPermissions
-
+import pub.devrel.easypermissions.EasyPermissions
 
 
 object PermissionsHelper {

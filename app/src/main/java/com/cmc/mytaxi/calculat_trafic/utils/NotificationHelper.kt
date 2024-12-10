@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.utils
+package com.cmc.mytaxi.calculat_trafic.utils
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

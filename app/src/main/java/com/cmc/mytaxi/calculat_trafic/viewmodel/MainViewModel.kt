@@ -1,4 +1,4 @@
-package com.cmc.mytaxi.viewmodel
+package com.cmc.mytaxi.calculat_trafic.viewmodel
 
 
 import android.content.Context
@@ -6,9 +6,9 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cmc.mytaxi.model.RideModel
-import com.cmc.mytaxi.repository.FareRepository
-import com.cmc.mytaxi.utils.LocationHelper
+import com.cmc.mytaxi.calculat_trafic.model.RideModel
+import com.cmc.mytaxi.calculat_trafic.repository.FareRepository
+import com.cmc.mytaxi.calculat_trafic.utils.LocationHelper
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
