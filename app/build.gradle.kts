@@ -73,4 +73,10 @@ dependencies {
 
     // Bar Code
     implementation(libs.zxing.android.embedded)
+
+    //google maps
+    implementation (libs.play.services.maps)
+    implementation (libs.play.services.location)
+    implementation (libs.easypermissions)
+
 }

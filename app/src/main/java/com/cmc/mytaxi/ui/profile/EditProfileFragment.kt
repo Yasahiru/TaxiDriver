@@ -1,5 +1,6 @@
 package com.cmc.mytaxi.ui.profile
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.cmc.mytaxi.App
+import com.cmc.mytaxi.CurrentPosition
 import com.cmc.mytaxi.R
 import com.cmc.mytaxi.data.local.models.Driver
 import com.cmc.mytaxi.data.repository.DriverRepository
@@ -42,6 +44,12 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 displayDriverDetails(it)
             }
         }
+
+        binding.goToPosition.setOnClickListener {
+            val intent = Intent(requireActivity(), CurrentPosition::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun QRCodegenerator(infos:String){

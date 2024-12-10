@@ -1,0 +1,107 @@
+Index: app/src/main/java/com/cmc/mytaxi/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.cmc.mytaxi\r\n\r\nimport android.content.Context\r\nimport android.os.Bundle\r\nimport android.os.Handler\r\nimport android.os.Looper\r\nimport android.widget.Button\r\nimport android.widget.TextView\r\nimport android.widget.Toast\r\nimport androidx.activity.enableEdgeToEdge\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.core.view.ViewCompat\r\nimport androidx.core.view.WindowInsetsCompat\r\nimport androidx.lifecycle.Observer\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport com.cmc.mytaxi.utils.NotificationHelper\r\nimport com.cmc.mytaxi.utils.PermissionsHelper\r\nimport com.cmc.mytaxi.viewmodel.MainViewModel\r\nimport com.cmc.mytaxi.viewmodel.MainViewModelFactory\r\nimport com.vmadalin.easypermissions.EasyPermissions\r\n\r\nclass MainActivity : AppCompatActivity() {\r\n    private lateinit var viewModel: MainViewModel\r\n    private lateinit var notificationHelper: NotificationHelper\r\n    private var isRideActive: Boolean = false\r\n    private val handler = Handler(Looper.getMainLooper())\r\n    private val updateInterval: Long = 5000 // 5 seconds\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_main)\r\n\r\n        val factory = MainViewModelFactory(this)\r\n        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)\r\n        notificationHelper = NotificationHelper(this)\r\n\r\n        val btnToggleRide = findViewById<Button>(R.id.btnToggleRide)\r\n\r\n        btnToggleRide.setOnClickListener {\r\n            if (!PermissionsHelper.hasLocationPermission(this)) {\r\n                PermissionsHelper.requestLocationPermission(this)\r\n                return@setOnClickListener\r\n            }\r\n            if (!isRideActive) {\r\n                startRide()\r\n                btnToggleRide.text = \"End Ride\"\r\n                isRideActive = true\r\n            } else {\r\n                endRide()\r\n                btnToggleRide.text = \"Start Ride\"\r\n                isRideActive = false\r\n            }\r\n        }\r\n\r\n        viewModel.rideData.observe(this, Observer { ride ->\r\n            // Update UI with the latest ride details\r\n            findViewById<TextView>(R.id.tvDistance).text = \"Distance: ${ride.distance} km\"\r\n            findViewById<TextView>(R.id.tvTimeElapsed).text = \"Time: ${ride.timeElapsed} min\"\r\n            findViewById<TextView>(R.id.tvTotalFare).text = \"Fare: ${ride.totalFare} DH\"\r\n        })\r\n    }\r\n\r\n    private fun startRide() {\r\n        viewModel.startRide()\r\n        handler.postDelayed(updateRideTask, updateInterval)\r\n    }\r\n\r\n    private fun endRide() {\r\n        handler.removeCallbacks(updateRideTask)\r\n        viewModel.rideData.value?.let { ride ->\r\n            notificationHelper.sendFareNotification(\r\n                ride.totalFare, ride.distance, ride.timeElapsed\r\n            )\r\n        }\r\n    }\r\n\r\n    private val updateRideTask = object : Runnable {\r\n        override fun run() {\r\n            if (isRideActive) {\r\n                viewModel.updateLocation()\r\n                handler.postDelayed(this, updateInterval)\r\n            }\r\n        }\r\n    }\r\n\r\n    override fun onRequestPermissionsResult(\r\n        requestCode: Int,\r\n        permissions: Array<out String>,\r\n        grantResults: IntArray\r\n    ) {\r\n        super.onRequestPermissionsResult(requestCode, permissions, grantResults)\r\n\r\n        if (EasyPermissions.somePermissionPermanentlyDenied(this, permissions.toList())) {\r\n            PermissionsHelper.showSettingsDialog(this)\r\n        } else if (PermissionsHelper.hasLocationPermission(this)) {\r\n            Toast.makeText(this, \"Permission granted. You can now start the ride.\", Toast.LENGTH_SHORT).show()\r\n        } else {\r\n            Toast.makeText(this, \"Permission denied. Cannot start the ride.\", Toast.LENGTH_SHORT).show()\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/cmc/mytaxi/MainActivity.kt b/app/src/main/java/com/cmc/mytaxi/MainActivity.kt
+--- a/app/src/main/java/com/cmc/mytaxi/MainActivity.kt	(revision bb19ea89d0745546e8d4e73b67e94b057310f835)
++++ b/app/src/main/java/com/cmc/mytaxi/MainActivity.kt	(date 1733783706865)
+@@ -1,30 +1,26 @@
+ package com.cmc.mytaxi
+ 
+-import android.content.Context
+ import android.os.Bundle
+ import android.os.Handler
+ import android.os.Looper
+ import android.widget.Button
+ import android.widget.TextView
+ import android.widget.Toast
+-import androidx.activity.enableEdgeToEdge
+ import androidx.appcompat.app.AppCompatActivity
+-import androidx.core.view.ViewCompat
+-import androidx.core.view.WindowInsetsCompat
+ import androidx.lifecycle.Observer
+ import androidx.lifecycle.ViewModelProvider
+ import com.cmc.mytaxi.utils.NotificationHelper
+ import com.cmc.mytaxi.utils.PermissionsHelper
+ import com.cmc.mytaxi.viewmodel.MainViewModel
+ import com.cmc.mytaxi.viewmodel.MainViewModelFactory
+-import com.vmadalin.easypermissions.EasyPermissions
++import pub.devrel.easypermissions.EasyPermissions
+ 
+ class MainActivity : AppCompatActivity() {
+     private lateinit var viewModel: MainViewModel
+     private lateinit var notificationHelper: NotificationHelper
+     private var isRideActive: Boolean = false
+     private val handler = Handler(Looper.getMainLooper())
+-    private val updateInterval: Long = 5000 // 5 seconds
++    private val updateInterval: Long = 5000
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+@@ -53,7 +49,6 @@
+         }
+ 
+         viewModel.rideData.observe(this, Observer { ride ->
+-            // Update UI with the latest ride details
+             findViewById<TextView>(R.id.tvDistance).text = "Distance: ${ride.distance} km"
+             findViewById<TextView>(R.id.tvTimeElapsed).text = "Time: ${ride.timeElapsed} min"
+             findViewById<TextView>(R.id.tvTotalFare).text = "Fare: ${ride.totalFare} DH"
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_21\" default=\"true\" project-jdk-name=\"jbr-21\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision bb19ea89d0745546e8d4e73b67e94b057310f835)
++++ b/.idea/misc.xml	(date 1733782909204)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="22" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <bytecodeTargetLevel target=\"21\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision bb19ea89d0745546e8d4e73b67e94b057310f835)
++++ b/.idea/compiler.xml	(date 1733781793791)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="CompilerConfiguration">
+-    <bytecodeTargetLevel target="21" />
++    <bytecodeTargetLevel target="22" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: app/src/main/java/com/cmc/mytaxi/utils/PermissionsHelper.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.cmc.mytaxi.utils\r\n\r\nimport android.content.Context\r\nimport android.content.Intent\r\nimport android.net.Uri\r\nimport android.provider.Settings\r\nimport androidx.fragment.app.FragmentActivity\r\nimport com.vmadalin.easypermissions.EasyPermissions\r\n\r\n\r\n\r\nobject PermissionsHelper {\r\n    private const val LOCATION_PERMISSION_CODE = 100\r\n\r\n    fun hasLocationPermission(context: Context): Boolean {\r\n        return EasyPermissions.hasPermissions(\r\n            context,\r\n            android.Manifest.permission.ACCESS_FINE_LOCATION,\r\n            android.Manifest.permission.ACCESS_COARSE_LOCATION\r\n        )\r\n    }\r\n\r\n    fun requestLocationPermission(activity: FragmentActivity) {\r\n        EasyPermissions.requestPermissions(\r\n            activity,\r\n            \"This app needs access to your location to track rides.\",\r\n            LOCATION_PERMISSION_CODE,\r\n            android.Manifest.permission.ACCESS_FINE_LOCATION,\r\n            android.Manifest.permission.ACCESS_COARSE_LOCATION\r\n        )\r\n    }\r\n\r\n    fun showSettingsDialog(context: Context) {\r\n        android.app.AlertDialog.Builder(context)\r\n            .setTitle(\"Permissions Required\")\r\n            .setMessage(\"Location permission is necessary for the app to function. Please enable it in the app settings.\")\r\n            .setPositiveButton(\"Go to Settings\") { _, _ ->\r\n                val intent = Intent(\r\n                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,\r\n                    Uri.fromParts(\"package\", context.packageName, null)\r\n                )\r\n                context.startActivity(intent)\r\n            }\r\n            .setNegativeButton(\"Cancel\", null)\r\n            .show()\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/app/src/main/java/com/cmc/mytaxi/utils/PermissionsHelper.kt b/app/src/main/java/com/cmc/mytaxi/utils/PermissionsHelper.kt
+--- a/app/src/main/java/com/cmc/mytaxi/utils/PermissionsHelper.kt	(revision bb19ea89d0745546e8d4e73b67e94b057310f835)
++++ b/app/src/main/java/com/cmc/mytaxi/utils/PermissionsHelper.kt	(date 1733783706782)
+@@ -5,8 +5,7 @@
+ import android.net.Uri
+ import android.provider.Settings
+ import androidx.fragment.app.FragmentActivity
+-import com.vmadalin.easypermissions.EasyPermissions
+-
++import pub.devrel.easypermissions.EasyPermissions
+ 
+ 
+ object PermissionsHelper {
