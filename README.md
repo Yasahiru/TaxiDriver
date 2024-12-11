@@ -1,5 +1,3 @@
-Here's the English version of your *MyTaxi* app's README:
-
 ---
 
 # 🚕 *MyTaxi App*
@@ -88,5 +86,3 @@ A big thank you to the entire team and our mentors for their continuous support 
 🎉 Thank you for exploring *MyTaxi*! 🚖 If you like our work, don't forget to give a ⭐ on the repository. 😄
 
 ---
-
-Let me know if you'd like any further changes!
