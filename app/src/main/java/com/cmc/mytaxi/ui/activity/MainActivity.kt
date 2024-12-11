@@ -34,18 +34,6 @@ class MainActivity : AppCompatActivity() {
         val factory = ProfileViewModelFactory(driverRepository)
         driverViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
 
-        driverViewModel.getDriverById(1).observe(this) { driver ->
-            if (driver?.isCreated == true) {
-                val intent = Intent(this, HomePage::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ProfileFragment())
-                    .commit()
-            }
-        }
-
         val targetFragment = intent.getStringExtra("MainActivity")
 
         if (targetFragment != null) {
@@ -57,6 +45,18 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 else -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, ProfileFragment())
+                        .commit()
+                }
+            }
+        } else {
+            driverViewModel.getDriverById(1).observe(this) { driver ->
+                if (driver?.isCreated == true) {
+                    val intent = Intent(this, HomePage::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, ProfileFragment())
                         .commit()

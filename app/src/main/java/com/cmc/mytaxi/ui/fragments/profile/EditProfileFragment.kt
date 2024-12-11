@@ -1,6 +1,5 @@
 package com.cmc.mytaxi.ui.fragments.profile
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +12,6 @@ import com.cmc.mytaxi.data.repository.DriverRepository
 import com.cmc.mytaxi.databinding.FragmentEditProfileBinding
 import com.cmc.mytaxi.data.viewmodel.ProfileViewModel
 import com.cmc.mytaxi.data.viewmodel.ProfileViewModelFactory
-import com.cmc.mytaxi.ui.activity.HomePage
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 

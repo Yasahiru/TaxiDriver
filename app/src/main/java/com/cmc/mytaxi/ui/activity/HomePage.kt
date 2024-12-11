@@ -143,8 +143,9 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setupProfileImageClick() {
         binding.profileImage.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("MainActivity", "editProfile")
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("MainActivity", "editProfile")
+            }
             startActivity(intent)
         }
     }
