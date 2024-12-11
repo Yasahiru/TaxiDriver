@@ -21,6 +21,10 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, ProfileFragment())
+            .commit()
+
         val targetFragment = intent.getStringExtra("MainActivity")
 
         if (targetFragment != null) {
@@ -38,10 +42,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, ProfileFragment())
-            .commit()
 
     }
 

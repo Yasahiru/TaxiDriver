@@ -44,8 +44,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         }
 
         binding.goToPosition.setOnClickListener {
-            val intent = Intent(requireActivity(), HomePage::class.java)
-            startActivity(intent)
+            requireActivity().finish()
         }
 
     }
