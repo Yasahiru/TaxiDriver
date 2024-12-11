@@ -10,7 +10,8 @@ data class Driver(
     val firstName: String,
     val lastName: String,
     val age: Int,
-    val permiType: String
+    val permiType: String,
+    val isCreated:Boolean = false
 
     ) {
 }

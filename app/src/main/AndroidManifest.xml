@@ -27,14 +27,6 @@
             android:value="AIzaSyBbZFFh3itefek-FSpOllGF1-8kpTE55hc" />
 
         <activity
-            android:name=".ui.activity.CurrentPosition"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.activity.CalculatTrafic"
-            android:exported="false" />
-
-        <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>

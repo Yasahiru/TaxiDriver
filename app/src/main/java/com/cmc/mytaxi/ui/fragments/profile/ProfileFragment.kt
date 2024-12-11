@@ -35,7 +35,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
             val permiType = binding.etPermiType.text.toString()
             val age = binding.etAge.text.toString().toInt()
 
-            val driver = Driver(driverId = 1, firstName = firstName, lastName = lastName, age = age, permiType = permiType)
+            val driver = Driver(driverId = 1, firstName = firstName, lastName = lastName, age = age, permiType = permiType ,isCreated = true)
             driverViewModel.addDriver(driver)
 
 
