@@ -7,13 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.cmc.mytaxi.App
-import com.cmc.mytaxi.ui.activity.CurrentPosition
 import com.cmc.mytaxi.R
 import com.cmc.mytaxi.data.local.models.Driver
 import com.cmc.mytaxi.data.repository.DriverRepository
 import com.cmc.mytaxi.databinding.FragmentEditProfileBinding
 import com.cmc.mytaxi.data.viewmodel.ProfileViewModel
 import com.cmc.mytaxi.data.viewmodel.ProfileViewModelFactory
+import com.cmc.mytaxi.ui.activity.HomePage
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 
@@ -44,7 +44,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         }
 
         binding.goToPosition.setOnClickListener {
-            val intent = Intent(requireActivity(), CurrentPosition::class.java)
+            val intent = Intent(requireActivity(), HomePage::class.java)
             startActivity(intent)
         }
 
