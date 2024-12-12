@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MyTaxi</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="distance_format">المسافة: %1$s كم</string>
+    <string name="time_elapsed_format">الوقت: %1$d دقيقة</string>
+    <string name="total_fare_format">الأجرة: %1$s درهم</string>
+    <string name="end_ride">إنهاء الرحلة</string>
+    <string name="start_ride">بدء الرحلة</string>
+    <string name="hello_blank_fragment">مرحبا بالمكون الفارغ</string>
+    <string name="Add_Driver">إضافة سائق</string>
+    <string name="permiType">نوع الرخصة</string>
+    <string name="Age">العمر</string>
+    <string name="Last_Name">اللقب</string>
+    <string name="First_Name">الاسم</string>
+    <string name="go_to_position">الذهاب إلى الموقع</string>
+    <string name="edit">تعديل الملف الشخصي</string>
+    <string name="Aged">العمر:</string>
+    <string name="Permie_Typee">نوع الرخصة:</string>
+    <string name="distance">المسافة: 0 كم</string>
+    <string name="time">الوقت: 0 دقيقة</string>
+    <string name="Fare">الأجرة: 0.00 درهم</string>
+    <string name="ride">بدء الرحلة</string>
+</resources>

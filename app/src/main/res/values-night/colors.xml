@@ -3,7 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="btn">#FFD700</color>
-    <color name="textC">#343A40</color>
+    <color name="textC">#FFD700</color>
     <color name="btnc">#343A40</color>
-    <color name="infos">#343A40</color>
+    <color name="infos">#D3D3D3</color>
+
 </resources>

@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MyTaxi</string>
+    <string name="login">Connexion</string>
+    <string name="distance_format">Distance : %1$s km</string>
+    <string name="time_elapsed_format">Temps : %1$d min</string>
+    <string name="total_fare_format">Tarif : %1$s DH</string>
+    <string name="end_ride">Terminer la course</string>
+    <string name="start_ride">Démarrer la course</string>
+    <string name="hello_blank_fragment">Bonjour fragment vide</string>
+    <string name="Add_Driver">Ajouter un chauffeur</string>
+    <string name="permiType">Type de permis</string>
+    <string name="Age">Âge</string>
+    <string name="Last_Name">Nom</string>
+    <string name="First_Name">Prénom</string>
+    <string name="go_to_position">Aller à la position</string>
+    <string name="edit">Modifier le profil</string>
+    <string name="Aged">Âge :</string>
+    <string name="Permie_Typee">Type de permis :</string>
+    <string name="distance">Distance : 0 km</string>
+    <string name="time">Temps : 0 min</string>
+    <string name="Fare">Tarif : 0.00 DH</string>
+    <string name="ride">Démarrer la course</string>
+</resources>

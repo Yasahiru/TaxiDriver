@@ -8,12 +8,23 @@
     android:padding="16dp"
     tools:context=".ui.fragments.profile.ProfileFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/textC"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"/>
+
     <EditText
         android:id="@+id/etFirstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="First Name"
+        android:hint="@string/First_Name"
+        android:textColorHint="@color/textC"
         android:textSize="18sp" />
 
     <EditText
@@ -21,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Last Name"
+        android:hint="@string/Last_Name"
+        android:textColorHint="@color/textC"
         android:textSize="18sp" />
 
     <EditText
@@ -29,7 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="Age"
+        android:hint="@string/Age"
+        android:textColorHint="@color/textC"
         android:textSize="18sp" />
 
     <EditText
@@ -37,7 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="permiType"
+        android:hint="@string/permiType"
+        android:textColorHint="@color/textC"
         android:textSize="18sp" />
 
     <Button
@@ -45,7 +59,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Add Driver" />
-
+        android:text="@string/Add_Driver"
+        android:backgroundTint="#FFD700"
+        android:textColor="@color/btnc"/>
 
 </LinearLayout>
