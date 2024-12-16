@@ -20,4 +20,10 @@
     <string name="time">Time: 0 min</string>
     <string name="Fare">Fare: 0.00 DH</string>
     <string name="ride">Start Ride</string>
+    <string name="fr">French</string>
+    <string name="ar">Arabic</string>
+    <string name="en">English</string>
+    <string name="choose">set Language</string>
+    <string name="dark">Dark Mode</string>
+    <string name="light">Light Mode</string>
 </resources>

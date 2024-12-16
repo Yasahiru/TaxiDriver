@@ -12,4 +12,9 @@ class DriverRepository(private val driverDao: DriverDao) {
     suspend fun getDriverById(driverId: Int): Driver? {
         return driverDao.getDriverById(driverId)
     }
+
+    suspend fun edited(id:Int,edited:Boolean){
+        driverDao.Edited(id,edited)
+    }
+
 }

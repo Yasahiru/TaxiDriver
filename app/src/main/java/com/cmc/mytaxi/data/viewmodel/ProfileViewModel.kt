@@ -23,4 +23,11 @@ class ProfileViewModel(private val driverRepository: DriverRepository) : ViewMod
         }
         return liveDataDriver
     }
+
+    fun edited(id:Int,edited:Boolean){
+        viewModelScope.launch {
+            driverRepository.edited(id,edited)
+        }
+    }
+
 }

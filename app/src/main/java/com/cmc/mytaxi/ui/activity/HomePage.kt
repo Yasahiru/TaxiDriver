@@ -2,15 +2,23 @@ package com.cmc.mytaxi.ui.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -60,20 +68,81 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
             insets
         }
 
+        val toolbar: Toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+
         val factory = CalculatTraficViewModelFactory(this)
         viewModel = ViewModelProvider(this, factory)[CalculatTraficViewModel::class.java]
         notificationHelper = NotificationHelper(this)
 
         setupLocationServices()
-
         setupRideToggleButton()
-
         observeRideData()
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         setupMap()
 
-        setupProfileImageClick()
+        fun language(context: Context, languageCode: String) {
+            val locale = Locale(languageCode)
+            Locale.setDefault(locale)
+
+            val config = Configuration()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                config.setLocale(locale)
+            } else {
+                config.locale = locale
+            }
+
+            createConfigurationContext(config)
+        }
+
+        fun setlang(){
+            val builder = AlertDialog.Builder(this)
+            val inflater = layoutInflater
+            val dialogView = inflater.inflate(R.layout.dialog_layout, null)
+            builder.setView(dialogView)
+            builder.setTitle("Custom Dialog")
+
+            builder.setPositiveButton("set"){dialog,_->
+                findViewById<RadioGroup>(R.id.rg).setOnCheckedChangeListener{ group, checkId->
+                    when(checkId){
+                        R.id.ar ->{
+                            language(this,"ar")
+                            HomePage().recreate()
+                        }
+                        R.id.fr ->{
+                            language(this,"fr")
+                            HomePage().recreate()
+                        }
+                        R.id.eng ->{
+                            language(this,"en")
+                            HomePage().recreate()
+                        }
+                    }
+                }
+            }
+
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
+
+
+
+        fun setTheme(){
+            val builder = AlertDialog.Builder(this)
+            val inflater = layoutInflater
+            val dialogView = inflater.inflate(R.layout.dialog_theme, null)
+            builder.setView(dialogView)
+            builder.setTitle("Custom Dialog")
+
+            builder.setPositiveButton("set"){dialog,_->
+                Toast.makeText(this,"test",Toast.LENGTH_SHORT).show()
+            }
+
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
+
     }
 
     private fun setupLocationServices() {
@@ -142,12 +211,10 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setupProfileImageClick() {
-        binding.profileImage.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java).apply {
-                putExtra("MainActivity", "editProfile")
-            }
-            startActivity(intent)
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("MainActivity", "editProfile")
         }
+        startActivity(intent)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -267,4 +334,33 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.home_page_menu, menu)
+        return true
+    }
+
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+
+            R.id.profile->{
+                setupProfileImageClick()
+                true
+            }
+
+            R.id.lang -> {
+                setlang()
+                true
+            }
+            R.id.light->{
+                setTheme()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }

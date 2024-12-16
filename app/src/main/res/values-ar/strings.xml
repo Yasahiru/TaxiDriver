@@ -20,4 +20,10 @@
     <string name="time">الوقت: 0 دقيقة</string>
     <string name="Fare">الأجرة: 0.00 درهم</string>
     <string name="ride">بدء الرحلة</string>
+    <string name="fr">الفرنية</string>
+    <string name="ar">العربية</string>
+    <string name="en">الانجليزية</string>
+    <string name="choose">تعيين اللغة</string>
+    <string name="dark">الوضع المظلم</string>
+    <string name="light">الوضع الفاتح</string>
 </resources>

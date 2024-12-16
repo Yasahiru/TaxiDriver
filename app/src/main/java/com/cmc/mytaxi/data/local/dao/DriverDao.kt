@@ -15,4 +15,8 @@ interface DriverDao {
     @Query("SELECT * FROM drivers WHERE driverId = :driverId")
     suspend fun getDriverById(driverId: Int): Driver?
 
+    @Query("Update drivers SET isEdited = :edited WHERE driverId= :id")
+    suspend fun Edited(id:Int,edited:Boolean)
+
+
 }

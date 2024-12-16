@@ -1,5 +1,6 @@
 package com.cmc.mytaxi.ui.fragments.profile
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -27,10 +28,12 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("CommitTransaction")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentEditProfileBinding.bind(view)
 
+        var edited = false
         val driverRepository = DriverRepository(App.database.driverDao())
         val factory = ProfileViewModelFactory(driverRepository)
         driverViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
@@ -45,6 +48,28 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             requireActivity().finish()
         }
 
+        binding.editProfile.setOnClickListener{
+            edited = true
+            val bundle = Bundle()
+            val fname = binding.fname.text.toString()
+            val lname = binding.lname.text.toString()
+            val age = binding.age.text.toString()
+            val permiType = binding.permiType.text.toString()
+
+            bundle.putString("fname",fname)
+            bundle.putString("lname",lname)
+            bundle.putString("age",age)
+            bundle.putString("permiType",permiType)
+            bundle.putBoolean("edited",edited)
+
+            val profileFragment = ProfileFragment()
+            profileFragment.arguments = bundle
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container,profileFragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     fun QRCodegenerator(infos:String){
@@ -72,6 +97,5 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
         QRCodegenerator(PersonalInfos)
     }
-
 
 }

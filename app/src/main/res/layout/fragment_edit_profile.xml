@@ -42,13 +42,14 @@
                     android:id="@+id/fname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textC"
+                    android:textColor="@color/black"
                     android:text="test" />
                 <TextView
                     android:id="@+id/lname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textC"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/black"
                     android:text="test" />
             </LinearLayout>
             <!-- end of first text container-->
@@ -63,13 +64,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textC"
+                    android:textColor="@color/black"
                     android:text="@string/Aged" />
                 <TextView
                     android:id="@+id/age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textC"
+                    android:textColor="@color/black"
                     android:layout_marginStart="8dp"
                     android:text="test" />
             </LinearLayout>
@@ -84,13 +85,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textC"
+                    android:textColor="@color/black"
                     android:text="@string/Permie_Typee" />
                 <TextView
                     android:id="@+id/permiType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textC"
+                    android:textColor="@color/black"
                     android:layout_marginStart="8dp"
                     android:text="test" />
             </LinearLayout>

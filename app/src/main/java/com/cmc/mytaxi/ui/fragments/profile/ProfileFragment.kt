@@ -3,6 +3,7 @@ package com.cmc.mytaxi.ui.fragments.profile
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.cmc.mytaxi.App
@@ -29,17 +30,37 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
 
         driverViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
 
+        val edited = arguments?.getBoolean("edited")
+
+        if(edited == true){
+            val name = arguments?.getString("fname")
+            val lname = arguments?.getString("lname")
+            val aage = arguments?.getString("age")
+            val permitype = arguments?.getString("permiType")
+
+            binding.etFirstName.setText(name)
+            binding.etLastName.setText(lname)
+            binding.etPermiType.setText(permitype)
+            binding.etAge.setText(aage)
+        }
+
         binding.btnAddDriver.setOnClickListener {
             val firstName = binding.etFirstName.text.toString()
             val lastName = binding.etLastName.text.toString()
             val permiType = binding.etPermiType.text.toString()
-            val age = binding.etAge.text.toString().toInt()
+            val age = binding.etAge.text.toString()
 
-            val driver = Driver(driverId = 1, firstName = firstName, lastName = lastName, age = age, permiType = permiType ,isCreated = true)
-            driverViewModel.addDriver(driver)
+            if(firstName!= "" && lastName!="" && permiType!="" && age!=""){
+                val driver = Driver(driverId = 1, firstName = firstName, lastName = lastName, age = age.toInt(), permiType = permiType ,isCreated = true)
+                driverViewModel.addDriver(driver)
 
-            val intent = Intent(requireContext(), HomePage::class.java)
-            startActivity(intent)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, EditProfileFragment())
+                    .commit()
+                
+            }else{
+                Toast.makeText(requireContext(),"Please Fill The Fields",Toast.LENGTH_SHORT).show()
+            }
 
         }
     }
@@ -49,5 +70,3 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
         _binding = null
     }
 }
-
-
