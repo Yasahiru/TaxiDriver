@@ -30,6 +30,12 @@
             android:id="@+id/eng"
             android:text="@string/en" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSubmit"
+            android:text="@string/choose"/>
+
     </RadioGroup>
 
 </LinearLayout>

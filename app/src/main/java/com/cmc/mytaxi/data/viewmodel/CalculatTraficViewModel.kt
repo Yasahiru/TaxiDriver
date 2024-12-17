@@ -29,9 +29,6 @@ class CalculatTraficViewModel(context: Context) : ViewModel() {
         _rideData.value = RideModel()
     }
 
-    /**
-     * Starts the ride, resets values, and fetches the initial location.
-     */
     fun startRide() {
         startTime = System.currentTimeMillis()
         totalDistance = 0.0
@@ -47,9 +44,6 @@ class CalculatTraficViewModel(context: Context) : ViewModel() {
         }
     }
 
-    /**
-     * Updates the ride data dynamically as location changes.
-     */
     fun updateLocation() {
         locationHelper.getCurrentLocation { location ->
             if (location != null) {
@@ -60,16 +54,10 @@ class CalculatTraficViewModel(context: Context) : ViewModel() {
         }
     }
 
-    /**
-     * Stops location updates when the ride ends.
-     */
     fun endRide() {
         locationHelper.stopLocationUpdates()
     }
 
-    /**
-     * Processes the current location and updates the distance, time, and fare.
-     */
     private fun processLocation(location: Location) {
         if (lastLocation != null) {
             val distance = calculateDistance(lastLocation!!, location)
@@ -80,21 +68,15 @@ class CalculatTraficViewModel(context: Context) : ViewModel() {
         updateRideData(location)
     }
 
-    /**
-     * Updates the ride data with the latest distance, time, and fare.
-     */
     private fun updateRideData(location: Location) {
-        val elapsedTime = (System.currentTimeMillis() - startTime) / 1000 / 60 // Minutes
+        val elapsedTime = (System.currentTimeMillis() - startTime) / 1000 / 60
         val fare = fareRepository.calculateFare(totalDistance, elapsedTime)
 
         _rideData.value = RideModel(totalDistance, elapsedTime, fare)
     }
 
-    /**
-     * Calculates the distance between two GPS points using the Haversine formula.
-     */
     private fun calculateDistance(start: Location, end: Location): Double {
-        val earthRadius = 6371 // Kilometers
+        val earthRadius = 6371
         val dLat = Math.toRadians(end.latitude - start.latitude)
         val dLon = Math.toRadians(end.longitude - start.longitude)
 
@@ -103,6 +85,6 @@ class CalculatTraficViewModel(context: Context) : ViewModel() {
                 sin(dLon / 2) * sin(dLon / 2)
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
-        return earthRadius * c // Distance in kilometers
+        return earthRadius * c
     }
 }

@@ -17,6 +17,7 @@ zxingAndroidEmbedded = "4.3.0"
 playServicesLocation = "21.3.0"
 playServicesMaps = "19.0.0"
 easypermissions = "3.0.0"
+uiAndroid = "1.7.6"
 
 [libraries]
 easypermissions = { module = "pub.devrel:easypermissions", version.ref = "easypermissions" }
@@ -36,6 +37,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
+androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version.ref = "uiAndroid" }
 
 
 [plugins]

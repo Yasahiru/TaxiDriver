@@ -1,6 +1,5 @@
 package com.cmc.mytaxi.ui.fragments.profile
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,7 +12,6 @@ import com.cmc.mytaxi.data.repository.DriverRepository
 import com.cmc.mytaxi.databinding.ProfileFragmentLayoutBinding
 import com.cmc.mytaxi.data.viewmodel.ProfileViewModel
 import com.cmc.mytaxi.data.viewmodel.ProfileViewModelFactory
-import com.cmc.mytaxi.ui.activity.HomePage
 
 class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
 
@@ -55,9 +53,9 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_layout) {
                 driverViewModel.addDriver(driver)
 
                 parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, EditProfileFragment())
+                    .replace(R.id.fragment_container_view, EditProfileFragment())
                     .commit()
-                
+
             }else{
                 Toast.makeText(requireContext(),"Please Fill The Fields",Toast.LENGTH_SHORT).show()
             }

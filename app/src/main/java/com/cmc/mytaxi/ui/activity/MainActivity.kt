@@ -41,12 +41,18 @@ class MainActivity : AppCompatActivity() {
                 "editProfile" -> {
                     val fragment = EditProfileFragment()
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
+                        .replace(R.id.fragment_container_view, fragment)
+                        .commit()
+                }
+                "Profile" -> {
+                    val fragment = EditProfileFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container_view, fragment)
                         .commit()
                 }
                 else -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, ProfileFragment())
+                        .replace(R.id.fragment_container_view, ProfileFragment())
                         .commit()
                 }
             }
@@ -58,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                     finish()
                 } else {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, ProfileFragment())
+                        .replace(R.id.fragment_container_view, ProfileFragment())
                         .commit()
                 }
             }

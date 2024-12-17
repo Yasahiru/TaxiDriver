@@ -2,18 +2,22 @@ package com.cmc.mytaxi.ui.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -28,6 +32,7 @@ import com.cmc.mytaxi.R
 import com.cmc.mytaxi.data.viewmodel.CalculatTraficViewModel
 import com.cmc.mytaxi.data.viewmodel.CalculatTraficViewModelFactory
 import com.cmc.mytaxi.databinding.ActivityHomePageBinding
+import com.cmc.mytaxi.ui.fragments.profile.ProfileFragment
 import com.cmc.mytaxi.utils.NotificationHelper
 import com.cmc.mytaxi.utils.PermissionsHelper
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -56,6 +61,8 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
         const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
+    lateinit var rg: View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -82,67 +89,93 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         setupMap()
 
-        fun language(context: Context, languageCode: String) {
-            val locale = Locale(languageCode)
-            Locale.setDefault(locale)
+        fun show() {
+            // Inflate the custom layout for the dialog
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null)
 
-            val config = Configuration()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                config.setLocale(locale)
-            } else {
-                config.locale = locale
-            }
+            val radioGroup = dialogView.findViewById<RadioGroup>(R.id.rg)
+            val btnSubmit = dialogView.findViewById<Button>(R.id.btnSubmit)
 
-            createConfigurationContext(config)
-        }
+            // Create the dialog
+            val dialog = Dialog(this)
+            dialog.setContentView(dialogView)
+            dialog.setTitle("Choose an Option")
 
-        fun setlang(){
-            val builder = AlertDialog.Builder(this)
-            val inflater = layoutInflater
-            val dialogView = inflater.inflate(R.layout.dialog_layout, null)
-            builder.setView(dialogView)
-            builder.setTitle("Custom Dialog")
-
-            builder.setPositiveButton("set"){dialog,_->
-                findViewById<RadioGroup>(R.id.rg).setOnCheckedChangeListener{ group, checkId->
-                    when(checkId){
-                        R.id.ar ->{
-                            language(this,"ar")
-                            HomePage().recreate()
-                        }
-                        R.id.fr ->{
-                            language(this,"fr")
-                            HomePage().recreate()
-                        }
-                        R.id.eng ->{
-                            language(this,"en")
-                            HomePage().recreate()
-                        }
-                    }
+            // Handle the button click inside the dialog
+            btnSubmit.setOnClickListener {
+                val selectedId = radioGroup.checkedRadioButtonId
+                if (selectedId != -1) {
+                    val selectedRadioButton = dialogView.findViewById<RadioButton>(selectedId)
+                    println("Selected Value: ${selectedRadioButton.text}")
                 }
+                dialog.dismiss()
             }
-
-            val dialog: AlertDialog = builder.create()
+            // Show the dialog
             dialog.show()
         }
 
+        //end oncreate
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
 
-        fun setTheme(){
-            val builder = AlertDialog.Builder(this)
-            val inflater = layoutInflater
-            val dialogView = inflater.inflate(R.layout.dialog_theme, null)
-            builder.setView(dialogView)
-            builder.setTitle("Custom Dialog")
+            R.id.profile->{
 
-            builder.setPositiveButton("set"){dialog,_->
-                Toast.makeText(this,"test",Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java).apply {
+                    putExtra("MainActivity", "Profile")
+                }
+                startActivity(intent)
+                true
             }
 
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
+//            R.id.lang -> {
+//                setlang()
+//                true
+//            }
+//            R.id.light->{
+//                // setTheme()
+//                true
+//            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+    fun setTheme(){
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_theme, null)
+        builder.setView(dialogView)
+        builder.setTitle("Custom Dialog")
+
+        builder.setPositiveButton("set"){dialog,_->
+            Toast.makeText(this,"test",Toast.LENGTH_SHORT).show()
         }
 
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    fun language(context: Context, languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+        config.setLocale(locale)
+
+        createConfigurationContext(config)
+    }
+
+    fun setlang(){
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_layout, null)
+        builder.setView(dialogView)
+
+        builder.setTitle("Custom Dialog")
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
     private fun setupLocationServices() {
@@ -208,13 +241,6 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
     private fun setupMap() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-    }
-
-    private fun setupProfileImageClick() {
-        val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra("MainActivity", "editProfile")
-        }
-        startActivity(intent)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -342,25 +368,7 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
 
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
 
-            R.id.profile->{
-                setupProfileImageClick()
-                true
-            }
-
-            R.id.lang -> {
-                setlang()
-                true
-            }
-            R.id.light->{
-                setTheme()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
 
 }

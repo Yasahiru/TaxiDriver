@@ -66,7 +66,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             profileFragment.arguments = bundle
 
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container,profileFragment)
+                .replace(R.id.fragment_container_view,profileFragment)
                 .addToBackStack(null)
                 .commit()
         }

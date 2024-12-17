@@ -14,20 +14,20 @@ class NotificationHelper(private val context: Context) {
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     init {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "fare_channel",
-                "Ride Fare Notifications",
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(
+            "fare_channel",
+            "Ride Fare Notifications",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        notificationManager.createNotificationChannel(channel)
     }
 
     fun sendFareNotification(fare: Double, distance: Double, time: Long) {
+        val formattedValue = String.format("%.2f", fare)
+        val formattedValue2 = String.format("%.2f", distance)
         val notification = NotificationCompat.Builder(context, "fare_channel")
             .setContentTitle("Ride Completed")
-            .setContentText("Fare: $fare DH | Distance: $distance km | Time: $time min")
+            .setContentText("Fare: $formattedValue DH | Distance: $formattedValue2 km | Time: $time min")
             .setSmallIcon(R.drawable.ic_taxi)
             .build()
 
