@@ -8,8 +8,6 @@
         app:showAsAction="always"
         android:title="profile" />
 
-    <!--
-
     <item
         android:id="@+id/lang"
         android:icon="@drawable/baseline_language_24"
@@ -21,7 +19,5 @@
         android:icon="@drawable/baseline_sunny_24"
         android:title="lightmode"
         app:showAsAction="always"/>
-
-    -->
 
 </menu>

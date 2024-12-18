@@ -61,8 +61,6 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
         const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
-    lateinit var rg: View
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -89,58 +87,29 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         setupMap()
 
-        fun show() {
-            // Inflate the custom layout for the dialog
-            val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null)
-
-            val radioGroup = dialogView.findViewById<RadioGroup>(R.id.rg)
-            val btnSubmit = dialogView.findViewById<Button>(R.id.btnSubmit)
-
-            // Create the dialog
-            val dialog = Dialog(this)
-            dialog.setContentView(dialogView)
-            dialog.setTitle("Choose an Option")
-
-            // Handle the button click inside the dialog
-            btnSubmit.setOnClickListener {
-                val selectedId = radioGroup.checkedRadioButtonId
-                if (selectedId != -1) {
-                    val selectedRadioButton = dialogView.findViewById<RadioButton>(selectedId)
-                    println("Selected Value: ${selectedRadioButton.text}")
-                }
-                dialog.dismiss()
-            }
-            // Show the dialog
-            dialog.show()
-        }
-
         //end oncreate
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-
             R.id.profile->{
-
                 val intent = Intent(this, MainActivity::class.java).apply {
                     putExtra("MainActivity", "Profile")
                 }
                 startActivity(intent)
                 true
             }
-
-//            R.id.lang -> {
-//                setlang()
-//                true
-//            }
-//            R.id.light->{
-//                // setTheme()
-//                true
-//            }
+            R.id.lang -> {
+                Toast.makeText(this,"Language mode",Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.light->{
+                Toast.makeText(this,"light mode",Toast.LENGTH_SHORT).show()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
     fun setTheme(){
         val builder = AlertDialog.Builder(this)
@@ -152,7 +121,6 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
         builder.setPositiveButton("set"){dialog,_->
             Toast.makeText(this,"test",Toast.LENGTH_SHORT).show()
         }
-
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
@@ -163,7 +131,6 @@ class HomePage : AppCompatActivity(), OnMapReadyCallback {
 
         val config = Configuration()
         config.setLocale(locale)
-
         createConfigurationContext(config)
     }
 
